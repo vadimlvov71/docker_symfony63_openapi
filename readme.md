@@ -25,8 +25,8 @@
 ##### Installation
 
 1. Clone the repo
-2. docker compose build
-3. docker compose up -d
+2. docker-compose build
+3. docker-compose up -d
 4. ![изображение](https://github.com/vadimlvov71/docker_symfony63_openapi/assets/57807117/d55b0da4-20be-4867-9457-41533e1c5c9b)
 
 5. open page http://localhost:83/start/
