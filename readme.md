@@ -6,7 +6,8 @@
 * forbidden delete a task which has child task with status "todo"
 * recursive data output as a tree of nesting tasks
 * PSR 12 standart
-  
+* ![изображение](https://github.com/vadimlvov71/docker_symfony63_openapi/assets/57807117/fb26c16f-8529-4f64-8e3f-d72b3ca92cd4)
+
 
 ##### Built With
 
