@@ -297,3 +297,8 @@
 172.24.0.1 - - [22/Nov/2023:09:30:01 +0000] "GET /_wdt/0f9622 HTTP/1.1" 200 19385 "http://localhost:83/api/doc" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/119.0"
 172.24.0.1 - - [23/Nov/2023:06:22:38 +0000] "GET /start/ HTTP/1.1" 200 67511 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/119.0"
 172.24.0.1 - - [23/Nov/2023:06:22:38 +0000] "GET /_wdt/262d77 HTTP/1.1" 200 17624 "http://localhost:83/start/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/119.0"
+172.24.0.1 - - [23/Nov/2023:08:17:56 +0000] "GET /api/doc HTTP/1.1" 200 76406 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/119.0"
+172.24.0.1 - - [23/Nov/2023:08:17:56 +0000] "GET /bundles/nelmioapidoc/swagger-ui/swagger-ui.css HTTP/1.1" 200 144966 "http://localhost:83/api/doc" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/119.0"
+172.24.0.1 - - [23/Nov/2023:08:17:56 +0000] "GET /bundles/nelmioapidoc/style.css HTTP/1.1" 200 6027 "http://localhost:83/api/doc" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/119.0"
+172.24.0.1 - - [23/Nov/2023:08:17:56 +0000] "GET /bundles/nelmioapidoc/logo.png HTTP/1.1" 200 9212 "http://localhost:83/api/doc" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/119.0"
+172.24.0.1 - - [23/Nov/2023:08:17:56 +0000] "GET /_wdt/ef5c3e HTTP/1.1" 200 19387 "http://localhost:83/api/doc" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/119.0"
