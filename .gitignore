@@ -3,4 +3,5 @@
 /www/symfony_api/vendor/
 ###< ignore the mysql dir content ###
 !/mysql/**/
+!/logs/**/
 /var
