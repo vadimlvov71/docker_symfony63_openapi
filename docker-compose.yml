@@ -1,0 +1,48 @@
+# Версия docker-compose
+version: '3'
+# Список наших сервисов (контейнеров)
+services:
+    nginx:
+        image: nginx:latest
+        # mapping ports
+        ports:
+            - "83:80"
+            - "446:443"
+        # mapping directories
+        volumes:
+            - ./nginx:/etc/nginx/conf.d
+            - ./www:/var/www
+            - ./logs:/var/log/nginx
+        
+        links:
+            - php
+        restart: always
+    php:
+        # directory for php dockerfile
+        build: ./php
+        #connected to mysql
+        links:
+            - mysql
+        # монтируем директорию с проектами
+        volumes:
+            - ./www/symfony_api:/var/www/symfony_api
+        restart: always
+    mysql:
+        image: mysql:8
+        ports:
+            - "3309:3306"
+        volumes:
+            - ./mysql:/var/lib/mysql
+        # задаем пароль для root пользователя
+        environment:
+            MYSQL_ROOT_PASSWORD: secret
+        restart: always
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin:latest
+        environment:
+            PMA_HOST: mysql
+        #PMA_USER: root
+        #PMA_PASSWORD: root
+        ports:
+        - "8083:80"
+        restart: always

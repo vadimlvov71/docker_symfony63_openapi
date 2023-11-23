@@ -1,0 +1,355 @@
+# config/packages/nelmio_api_doc.yaml
+nelmio_api_doc:
+    documentation:
+        #servers:
+          #- url: /task222/api/new
+          #  description: API over HTTP
+        paths:
+            '/task/api/list/{user_id}':
+                get:
+                    parameters:
+                        -
+                            name: user_id
+                            in: path
+                            description: 'id of an user'
+                            required: true
+                            schema:
+                                $ref: '#/components/schemas/User'
+                    responses:
+                        '200':
+                            description: list of task of a user.
+                            content:
+                                application/json:
+                                    schema:
+                                        $ref: '#/components/schemas/Example'                               
+            '/task/api/{user_id}/status/{status}':
+                get:
+                    parameters:
+                        -
+                            name: user_id
+                            in: path
+                            description: 'id of an user'
+                            required: true
+                            schema:
+                                example: ["User1", "User2"]
+                                $ref: '#/components/schemas/User'
+                        -
+                            name: status
+                            in: path
+                            description: 'status of a task'
+                            required: true
+                            schema:
+                              $ref: '#/components/schemas/Status'
+                    responses:
+                        '200':
+                            description: filter by status.
+                            content:
+                                application/json:
+                                    schema:
+                                        $ref: '#/components/schemas/Example' 
+
+            '/task/api/{user_id}/priority/{priority}':
+                get:
+                    parameters:
+                        -
+                            name: user_id
+                            in: path
+                            description: 'id of an user'
+                            required: true
+                            schema:
+                                $ref: '#/components/schemas/User'
+                        -
+                            name: priority
+                            in: path
+                            description: 'priority of a task'
+                            required: true
+                            schema:
+                              $ref: '#/components/schemas/Priority'
+                    responses:
+                        '200':
+                            description: result of validation and insertion.
+                            content:
+                                application/json:
+                                    schema:
+                                        $ref: '#/components/schemas/Example' 
+            '/task/api/{user_id}/title/{title}':
+                get:
+                    parameters:
+                        -
+                            name: user_id
+                            in: path
+                            description: 'id of an user'
+                            required: true
+                            schema:
+                                example: ["User1", "User2"]
+                                $ref: '#/components/schemas/User'
+                        -
+                            name: title
+                            in: path
+                            description: 'priority of a task'
+                            required: true
+                            schema:
+                                type: string
+                    responses:
+                        '200':
+                            description: result of full text search of title.
+                            content:
+                                application/json:
+                                    schema:
+                                        $ref: '#/components/schemas/Example' 
+                                        
+            '/task/api/{user_id}/description/{description}':
+                get:
+                    parameters:
+                        -
+                            name: user_id
+                            in: path
+                            description: 'id of an user'
+                            required: true
+                            schema:
+                                example: ["User1", "User2"]
+                                $ref: '#/components/schemas/User'
+                        -
+                            name: description
+                            in: path
+                            description: 'search description of a task'
+                            required: true
+                            schema:
+                                type: string
+                    responses:
+                        '200':
+                            description: result of full text search of description.
+                            content:
+                                application/json:
+                                    schema:
+                                        $ref: '#/components/schemas/Example' 
+            '/task/api/new':
+                post:
+                    description: 'Insert a new task'
+                    requestBody:
+                        content:
+                            application/json:
+                                schema:
+                                    properties:
+                                        title:
+                                            type: string
+                                        description:
+                                            type: string
+                                        status:  
+                                            $ref: '#/components/schemas/Status'
+                                        priority: 
+                                            type: string
+                                        user_id: 
+                                            type: string
+                                        parent_id:
+                                            type: string
+                                    $ref: '#/components/schemas/Example' 
+                                        
+                                   
+                    responses:
+                        '200':
+                            description: result of validation and insertion.
+                            content:
+                                application/json:
+                                    schema:
+                                        #type: object
+                                        example: ["validate_success","last_insert_id", "insert_success"]
+           
+            '/task/api/{user_id}/edit/{id}':
+                put:
+                    description: 'edit an task'
+                    parameters:
+                    -
+                        name: user_id
+                        in: path
+                        description: 'id of an user'
+                        required: true
+                        schema:
+                            $ref: '#/components/schemas/User'
+                    -
+                        name: id
+                        in: path
+                        description: 'id of an task'
+                        required: true
+                    requestBody:
+                        content:
+                            application/json:
+                                schema:
+                                    properties:
+                                        title:
+                                            type: string
+                                        description:
+                                            type: string
+                                        status:  
+                                            $ref: '#/components/schemas/Status'
+                                        priority: 
+                                            type: string
+                                        user_id: 
+                                            type: string
+                                        parent_id:
+                                            type: string
+                                    example:
+                                        title: 'Task11 Edited'
+                                        description: 'Description 11Edited'
+                                        status: "todo"
+                                        priority: '5'
+                                        
+                    responses:
+                        '200':
+                            description: result of validation and updating.
+                            content:
+                                application/json:
+                                    schema:
+                                        example: ["validate_success","update_success"]                  
+            '/task/api/{user_id}/delete/{id}':
+                delete:
+                    description: 'delete an task'
+                    parameters:
+                        -
+                            name: user_id
+                            in: path
+                            description: 'id of an user'
+                            required: true
+                            schema:
+                                $ref: '#/components/schemas/User'
+                        -
+                            name: id
+                            in: path
+                            description: 'id of an task'
+                            required: true 
+                            schema:
+                                type: string 
+                    responses:
+                        '200':
+                            description: result of deletion.
+                            content:
+                                application/json:
+                                    schema:
+                                        example: ["validate_success","delete_success"]      
+            '/task/api/{user_id}/change_status/{id}/{status}':
+                patch:
+                    description: 'edit one field: status'
+                    parameters:
+                        -
+                            name: user_id
+                            in: path
+                            description: 'id of an user'
+                            required: true
+                            schema:
+                                $ref: '#/components/schemas/User'
+                        -
+                            name: id
+                            in: path
+                            description: 'id of an task'
+                            required: true
+                            schema:
+                                type: string
+                        -
+                            name: status
+                            in: path
+                            description: 'status of a task'
+                            required: true
+                            schema:
+                                $ref: '#/components/schemas/Status'
+                    responses:
+                        '200':
+                            description: result of validation and updating.
+                            content:
+                                application/json:
+                                    schema:
+                                        example: 
+                                            - ["validate_success", "status_update_success"]  
+                                            - ["this task has nesting tasks: 1 , 5, 20 with status: 'todo'"]
+            '/task/api/{user_id}/tasks_tree/{id}':
+                get:
+                    parameters:
+                        -
+                            name: user_id
+                            in: path
+                            description: 'id of an user'
+                            required: true
+                            schema:
+                                $ref: '#/components/schemas/User'
+                        -
+                            name: id
+                            in: path
+                            description: 'id of a task'
+                            required: true
+                            schema:
+                                type: string
+                    responses:
+                        '200':
+                            description: The tree of task of a task.
+                            content:
+                                application/json:
+                                    schema:
+                                        $ref: '#/components/schemas/Example' 
+            '/task/api/{user_id}/priority_by/{priority_sort}/created_by/{created_sort}':
+                get:
+                    parameters:
+                        -
+                            name: user_id
+                            in: path
+                            description: 'id of an user'
+                            required: true
+                            schema:
+                                $ref: '#/components/schemas/User'
+                        -
+                            name: priority_sort
+                            in: path
+                            description: 'order by priority'
+                            required: true
+                            schema:
+                                $ref: '#/components/schemas/OrderBy'
+                        -
+                            name: created_sort
+                            in: path
+                            description: 'order by priority'
+                            required: true
+                            schema:
+                                $ref: '#/components/schemas/OrderBy'
+                    responses:
+                        '200':
+                            description: task sorted by priority and createdat fields.
+                            content:
+                                application/json:
+                                    schema:
+                                        $ref: '#/components/schemas/Example' 
+        info:
+            title: Vadim and symfony
+        
+
+        components:
+          schemas:
+            User:
+              type: string
+              enum:
+                  - 1
+                  - 2
+            Status:
+              type: string
+              enum:
+                  - todo
+                  - done
+            OrderBy:
+              type: string
+              enum:
+                  - desc
+                  - asc
+            Priority:
+              type: string
+              enum: ["1", "2", "3", "4", "5"]
+            Example:
+                example:
+                    title: 'Task New'
+                    description: "Some description new"
+                    status: "todo"
+                    priority: "3"
+                    user_id: "1"
+                    parent_id: "20"
+
+    areas:
+        path_patterns: # an array of regexps (document only routes under /api, except /api/doc)
+            - ^/api(?!/doc$)
+        host_patterns: # document only routes with a host of the form api.*
+            - ^api\.

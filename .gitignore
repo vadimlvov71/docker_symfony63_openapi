@@ -1,0 +1,6 @@
+
+###> symfony/framework-bundle ###
+/www/symfony_api/vendor/
+###< ignore the mysql dir content ###
+!/mysql/**/
+/var
