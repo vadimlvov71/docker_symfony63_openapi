@@ -21,8 +21,8 @@ use App\Service\TasksTree;
  * 4 ones for crud, one - for changing only one field: 'current salary'
  * used API with five entrypoints
  * create a tree of a tasks of a one
- * 
- * 
+ *
+ *
 * @author Vadim Podolyan <vadim.podolyan@gmail.com>
 *
  */
@@ -33,7 +33,7 @@ class TaskApiController extends AbstractController
     /**
      * @param Request $request
      * @param TaskRepository $taskRepository
-     * 
+     *
      * @return Response
      */
     public function index(Request $request, TaskRepository $taskRepository): Response
@@ -43,23 +43,22 @@ class TaskApiController extends AbstractController
         $child_ids = [];
         $criteria = ['user_id' => $user_id];
         $tasks = $taskRepository->findBy($criteria);
-        foreach ($tasks as $task) { 
-             
+        foreach ($tasks as $task) {
             $criteria = ['parent_id' => $task->getId()];
             $tasks_child = $taskRepository->findBy($criteria);
             $temp = [];
-            foreach ($tasks_child as $child) { 
+            foreach ($tasks_child as $child) {
                 if ($child->getParentId() == $task->getId()) {
-                    $temp[$child->getId()] = $child; 
+                    $temp[$child->getId()] = $child;
                     $child_ids[] = $child->getId();
                 }
             }
-            $task->setChild($temp); 
+            $task->setChild($temp);
         }
         $i = 0;
-        foreach ($tasks as $task) { 
+        foreach ($tasks as $task) {
             if (in_array($task->getId(), $child_ids)) {
-               unset($tasks[$i]);
+                unset($tasks[$i]);
             }
             $i++;
         }
@@ -69,7 +68,7 @@ class TaskApiController extends AbstractController
     /**
      * @param Request $request
      * @param TaskRepository $taskRepository
-     * 
+     *
      * @return Response
      */
     public function status(Request $request, TaskRepository $taskRepository): Response
@@ -84,7 +83,7 @@ class TaskApiController extends AbstractController
     /**
      * @param Request $request
      * @param TaskRepository $taskRepository
-     * 
+     *
      * @return Response
      */
     public function priority(Request $request, TaskRepository $taskRepository): Response
@@ -100,7 +99,7 @@ class TaskApiController extends AbstractController
      *  Filter by Title
      * @param Request $request
      * @param TaskRepository $taskRepository
-     * 
+     *
      * @return Response
      */
     public function title(Request $request, TaskRepository $taskRepository): Response
@@ -116,7 +115,7 @@ class TaskApiController extends AbstractController
      * Filter by Description
      * @param Request $request
      * @param TaskRepository $taskRepository
-     * 
+     *
      * @return Response
      */
     public function description(Request $request, TaskRepository $taskRepository): Response
@@ -131,11 +130,14 @@ class TaskApiController extends AbstractController
      * @param Request $request
      * @param EntityManagerInterface $entityManager
      * @param validatorInterface $validator
-     * 
+     *
      * @return Response
      */
-    public function new(Request $request, EntityManagerInterface $entityManager, validatorInterface $validator): Response
-    {
+    public function new(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        validatorInterface $validator
+    ): Response {
         $constraints = Validation::getConstrains();
         $response = [];
         $responseItem = [];
@@ -144,14 +146,13 @@ class TaskApiController extends AbstractController
 
         $postData["priority"] = (int)$postData["priority"];
         $validationResult = $validator->validate($postData, $constraints);
-        
+
         if (count($validationResult) > 0) {
             foreach ($validationResult as $result) {
                 $responseItem[$result->getPropertyPath()] = $result->getMessage();
             }
             $response['validate_error'] = $responseItem;
         } else {
-            
             $response[] = "validate_success";
             try {
                 $task = new Task();
@@ -181,12 +182,17 @@ class TaskApiController extends AbstractController
      * @param EntityManagerInterface $entityManager
      * @param validatorInterface $validator
      * @param TaskRepository $taskRepository
-     * 
+     *
      * @return Response
      */
-    public function edit(Request $request, Task $task, EntityManagerInterface $entityManager, validatorInterface $validator, TaskRepository $taskRepository): Response
-    {
-        
+    public function edit(
+        Request $request,
+        Task $task,
+        EntityManagerInterface $entityManager,
+        validatorInterface $validator,
+        TaskRepository $taskRepository
+    ): Response {
+
         $response = [];
         $responseItem = [];
 
@@ -228,11 +234,17 @@ class TaskApiController extends AbstractController
      * @param EntityManagerInterface $entityManager
      * @param validatorInterface $validator
      * @param taskRepository $taskRepository
-     * 
+     *
      * @return Response
      */
-    public function changeStatus(Request $request, task $task, EntityManagerInterface $entityManager, validatorInterface $validator, taskRepository $taskRepository, TasksTree $taskTree): Response
-    {
+    public function changeStatus(
+        Request $request,
+        task $task,
+        EntityManagerInterface $entityManager,
+        validatorInterface $validator,
+        taskRepository $taskRepository,
+        TasksTree $taskTree
+    ): Response {
 
         $constraints = Validation::getConstrains("status", $task->getUserId());
         $response = [];
@@ -254,18 +266,22 @@ class TaskApiController extends AbstractController
      * @param Request $request
      * @param task $task
      * @param EntityManagerInterface $entityManager
-     * 
+     *
      * @return Response
      */
-    public function delete(Request $request, Task $task, validatorInterface $validator, EntityManagerInterface $entityManager): Response
-    {
+    public function delete(
+        Request $request,
+        Task $task,
+        validatorInterface $validator,
+        EntityManagerInterface $entityManager
+    ): Response {
         $response = [];
         $responseItem = [];
 
         $postData = [];
         $postData["user_id"] = (int)$request->get('user_id');
         $postData["status"] = $task->getStatus();
-  
+
         $constraints = Validation::getConstrains("delete", $task->getUserId());
 
         $validationResult = $validator->validate($postData, $constraints);
@@ -285,13 +301,13 @@ class TaskApiController extends AbstractController
         }
         return $this->json($response);
     }
-    
+
     #[Route('/{user_id}/tasks_tree/{id}', name: 'app_task_api_ task_tree', methods: ['GET'])]
     /**
      * The tree of a task with nesting tasks
      * @param Request $request
      * @param TaskRepository $taskRepository
-     * 
+     *
      * @return Response
      */
     public function taksTree(Request $request, TasksTree $taskTree): Response
@@ -299,21 +315,21 @@ class TaskApiController extends AbstractController
         $user_id = $request->get('user_id');
         $id = $request->get('id');
         $criteria = ['parent_id' => $id];
-        
+
         $tasks = $taskTree->loopTasks($criteria, "tree");
 
         return $this->json($tasks);
     }
-    #[Route('/{user_id}/priority_by/{priority_sort}/created_by/{created_sort}', name: 'app_api_task_sortBy', methods: ['GET'])]
+    #[Route('/{user_id}/priority_by/{priority_sort}/created_by/{created_sort}', name: 'app_sortBy', methods: ['GET'])]
     /**
      * @param Request $request
      * @param TaskRepository $taskRepository
-     * 
+     *
      * @return Response
      */
     public function sortBy(Request $request, TaskRepository $taskRepository): Response
     {
-       
+
         $user_id = $request->get('user_id');
         $priority_sort = $request->get('priority_sort');
         $created_sort = $request->get('created_sort');
@@ -322,7 +338,7 @@ class TaskApiController extends AbstractController
         /*echo "____<pre>";
         print_r($tasks);
         echo "</pre>";*/
-       
+
         return $this->json($tasks);
     }
 }

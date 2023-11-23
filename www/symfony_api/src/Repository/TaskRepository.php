@@ -25,7 +25,7 @@ class TaskRepository extends ServiceEntityRepository
     /**
      * @param string $title
      * @param int $user_id
-     * 
+     *
      * @return array
      */
     public function findByTitle(string $title, int $user_id): array
@@ -42,7 +42,7 @@ class TaskRepository extends ServiceEntityRepository
     /**
      * @param string $description
      * @param int $user_id
-     * 
+     *
      * @return array
      */
     public function findByDescription(string $description, int $user_id): array
@@ -62,13 +62,13 @@ class TaskRepository extends ServiceEntityRepository
      * @param int $user_id
      * @param string $priority_sort
      * @param string $created_sort
-     * 
+     *
      * @return array
      */
     public function sortBy(int $user_id, string $priority_sort, string $created_sort): array
     {
         $query = $this->createQueryBuilder('t');
-        
+
         $query->andWhere('t.user_id = :user_id')
             ->setParameter('user_id', $user_id);
         if ($created_sort == "asc") {

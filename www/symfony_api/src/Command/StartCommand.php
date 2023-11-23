@@ -1,4 +1,5 @@
 <?php
+
 // src/Command/CreateUserCommand.php
 namespace App\Command;
 
@@ -30,13 +31,19 @@ class StartCommand extends Command
         // the full command description shown when running the command with
         // the "--help" option
         ->setHelp('This command allows you to create a user...')
-    ;
+        ;
     }
 
     /**
+     * RUN init.sh bash file which
+     * php bin/console doctrine:database:create
+     *   yes | bin/console doctrine:migrations:migrate
+    *  yes | php bin/console make:fixture
+    *  yes | php bin/console doctrine:fixture:load
+    *
      * @param InputInterface $input
      * @param OutputInterface $output
-     * 
+     *
      * @return int
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -56,8 +63,7 @@ class StartCommand extends Command
                 'fixture:load',
             ]);
         }
-        // outputs multiple lines to the console (adding "\n" at the end of each line)
-        
+
         return Command::SUCCESS;
     }
 }

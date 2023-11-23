@@ -11,6 +11,9 @@ enum Description: string
     case five = "toyota";
     case six = "fiat";
 
+    /**
+     * @return string
+     */
     public static function randomValue(): string
     {
         $description = Description::cases(); 

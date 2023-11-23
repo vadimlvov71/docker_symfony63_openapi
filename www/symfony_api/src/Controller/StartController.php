@@ -23,15 +23,16 @@ class StartController extends AbstractController
     #[Route('/', name: 'app_start_index', methods: ['GET'])]
     public function index(TaskRepository $taskRepository, KernelInterface $kernel): Response
     {
-        $results = []; 
+        $results = [];
         $application = new Application($kernel);
         $application->setAutoExit(false);
 
-        $input = new ArrayInput (
-        [
+        $input = new ArrayInput(
+            [
             'command' => 'start:app',
             '--no-interaction' => true
-        ]);
+            ]
+        );
 
         // You can use NullOutput() if you don't need the output
         $output = new BufferedOutput();
@@ -47,10 +48,10 @@ class StartController extends AbstractController
     #[Route('/process', name: 'app_start_process', methods: ['GET'])]
     /**
      * this method doesn`t work
-     * 
+     *
      * @param TaskRepository $taskRepository
      * @param KernelInterface $kernel
-     * 
+     *
      * @return Response
      */
     public function process(TaskRepository $taskRepository, KernelInterface $kernel): Response
@@ -91,5 +92,4 @@ class StartController extends AbstractController
             'results' => $results,
         ]);
     }
-
 }
