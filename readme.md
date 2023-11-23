@@ -26,7 +26,9 @@
 1. Clone the repo
 2. docker compose build
 3. docker compose up -d
-4. open page http://localhost:83/start/
+4. ![изображение](https://github.com/vadimlvov71/docker_symfony63_openapi/assets/57807117/d55b0da4-20be-4867-9457-41533e1c5c9b)
+
+5. open page http://localhost:83/start/
    which run scripts for create: database, migration and fixture with 20 generated randomly tasks
-5. http://localhost:83/api/doc       as a result:
-6. ![изображение](https://github.com/vadimlvov71/docker_symfony63_openapi/assets/57807117/bcb16571-c3a4-4754-a2e7-fe15f2dddc72)
+6. http://localhost:83/api/doc       as a result:
+7. ![изображение](https://github.com/vadimlvov71/docker_symfony63_openapi/assets/57807117/bcb16571-c3a4-4754-a2e7-fe15f2dddc72)
