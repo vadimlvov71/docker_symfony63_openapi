@@ -1,4 +1,4 @@
-#####  docker symfony63 a tasks system managed by OpenApi
+###  Docker with symfony63 a tasks system managed by OpenApi
 ##### About The Project 
 * docker with php8.2, mysql, nginx
 * crud of tasks
