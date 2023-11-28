@@ -20,7 +20,7 @@ use Symfony\Component\Process\Process;
 #[Route('/start')]
 class StartController extends AbstractController
 {
-    #[Route('/', name: 'app_start_index', methods: ['GET'])]
+    #[Route('/', name: 'app_task_new', methods: ['GET'])]
     public function index(TaskRepository $taskRepository, KernelInterface $kernel): Response
     {
         $results = [];

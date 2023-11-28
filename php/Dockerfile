@@ -19,15 +19,6 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Set working directory
 WORKDIR /var/www/symfony_api
- 
-#TODO: change root to user
-CMD ["bash", "-c", "composer install; php-fpm; chown -R www-data var/www/symfony_api"]
-RUN chown -R www-data:www-data  /var/www/symfony_api
 
-# Change current user to www
-USER www-data
-
-
-
-
+CMD ["php-fpm"]
 

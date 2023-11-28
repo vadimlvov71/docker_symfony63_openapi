@@ -3,6 +3,7 @@ version: '3'
 # Список наших сервисов (контейнеров)
 services:
     nginx:
+        container_name: nginx_tasks
         image: nginx:latest
         # mapping ports
         ports:
@@ -18,6 +19,7 @@ services:
             - php
         restart: always
     php:
+        container_name: php_tasks
         # directory for php dockerfile
         build: ./php
         #connected to mysql
@@ -28,6 +30,7 @@ services:
             - ./www/symfony_api:/var/www/symfony_api
         restart: always
     mysql:
+        container_name: mysql_tasks
         image: mysql:8
         ports:
             - "3309:3306"
@@ -38,6 +41,7 @@ services:
             MYSQL_ROOT_PASSWORD: secret
         restart: always
     phpmyadmin:
+        container_name: phpmyadmin_tasks
         image: phpmyadmin/phpmyadmin:latest
         environment:
             PMA_HOST: mysql
